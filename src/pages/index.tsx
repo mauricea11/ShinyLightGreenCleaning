@@ -5,6 +5,9 @@ import emailjs from "@emailjs/browser";
 
 export default function Home() {
   const [status, setStatus] = useState("");
+  // const serviceID = process.env.NEXT_PUBLIC_SERVICE_ID;
+  // const templateID = process.env.NEXT_PUBLIC_TEMPLATE_ID;
+  // const publicKey = process.env.NEXT_PUBLIC_PUBLIC_KEY;
 
   const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -15,22 +18,25 @@ export default function Home() {
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const form = e.currentTarget;
+
     emailjs
       .sendForm(
-        "YOUR_SERVICE_ID", // replace with EmailJS service ID
-        "YOUR_TEMPLATE_ID", // replace with EmailJS template ID
-        e.currentTarget,
-        "YOUR_PUBLIC_KEY" // replace with EmailJS public key
+        "service_7ad8vub", // EmailJS service ID
+        "template_jrzkgpm", // EmailJS template ID
+        form,
+        "_QUr_BayH9eL25mRz" // Public key
       )
       .then(
         (result) => {
           console.log(result.text);
           setStatus("Message sent successfully!");
-          e.currentTarget.reset();
+          form.reset();
         },
         (error) => {
           console.log(error.text);
           setStatus("Failed to send message. Try again.");
+          form.reset();
         }
       );
   };
@@ -56,12 +62,13 @@ export default function Home() {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-100">
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img
-              src="/Marie-Jeanne-Bacchus-10.png"
-              alt="Shiny Light Green Cleaning Services Logo"
-              className="h-8 w-auto"
-            />
-
+            <a href="">
+              <img
+                src="/Marie-Jeanne-Bacchus-10.png"
+                alt="Shiny Light Green Cleaning Services Logo"
+                className="h-8 w-auto"
+              />
+            </a>
             <h1 className="text-xl font-semibold tracking-tight">
               Shiny Light Cleaning Services
             </h1>
@@ -196,8 +203,8 @@ export default function Home() {
           <div className="order-1 md:order-2">
             <div className="aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-xl">
               <img
-                src="https://images.unsplash.com/photo-1598514982650-8e9ee3cdf3c8?q=80&w=1600&auto=format&fit=crop"
-                alt="Team members preparing eco-friendly supplies"
+                src="/alberto-gasco-8mVRTpgYZtE-unsplash.jpg"
+                alt="The Bronx"
                 className="h-full w-full object-cover"
               />
             </div>
@@ -360,8 +367,8 @@ export default function Home() {
                 a: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus asperiores illo fugiat, quaerat autem doloremque rerum qui praesentium impedit deserunt assumenda perferendis ratione ea tempora expedita. Exercitationem est praesentium aliquid.",
               },
               {
-                q: "Do you offer eco‑friendly products?",
-                a: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus asperiores illo fugiat, quaerat autem doloremque rerum qui praesentium impedit deserunt assumenda perferendis ratione ea tempora expedita. Exercitationem est praesentium aliquid.",
+                q: "Where are you located?",
+                a: "We are located in West Philadelphia and cover Philadelphia and the surrounding 5 mile area.",
               },
               {
                 q: "What is your cancellation policy?",
@@ -415,6 +422,7 @@ export default function Home() {
 
           {/* EmailJS Contact Form */}
           <form
+            id="contactform"
             onSubmit={sendEmail}
             className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4"
           >
@@ -441,9 +449,10 @@ export default function Home() {
             />
             <input
               type="text"
-              name="address"
-              placeholder="Address (optional)"
+              name="service"
+              placeholder="Service interested in"
               className="w-full p-3 border rounded-xl md:col-span-2"
+              required
             />
             <textarea
               name="message"
@@ -464,7 +473,7 @@ export default function Home() {
           </form>
 
           <p className="mt-4 text-center text-sm text-slate-500">
-            Or email us: mauriceaugust117@gmail.com
+            Or call us: 267-299-8404
           </p>
         </div>
       </section>
@@ -524,7 +533,7 @@ export default function Home() {
           <div>
             <p className="font-semibold">Get in Touch</p>
             <ul className="mt-3 space-y-2 text-sm text-slate-400">
-              <li>hello@shinylightcleaning.com</li>
+              <li>267-299-8404</li>
               <li>Mon–Sat, 8am–6pm</li>
             </ul>
           </div>
