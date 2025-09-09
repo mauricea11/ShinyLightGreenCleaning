@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import Image from "next/image";
 
 export default function Home() {
   const [status, setStatus] = useState("");
@@ -46,7 +47,6 @@ export default function Home() {
     "/New-Project-300x300 copy.png",
     "/New-Project-4-300x300 copy.png",
     "/New-Project-5-300x300 copy.png",
-    // Add more images here
   ];
   const [currentImage, setCurrentImage] = useState(0);
   const nextImage = () =>
@@ -128,7 +128,7 @@ export default function Home() {
               detail to every visit—eco-friendly products, honest pricing, and a
               100% happiness pledge.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
+            {/* <div className="mt-6 flex flex-wrap gap-3">
               <a
                 href="#contact"
                 onClick={(e) => smoothScroll(e, "contact")}
@@ -143,7 +143,7 @@ export default function Home() {
               >
                 Explore Services
               </a>
-            </div>
+            </div> */}
             {/* Trust badges */}
             <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4">
               <div className="rounded-2xl border border-slate-100 p-4 shadow-sm">
@@ -175,15 +175,91 @@ export default function Home() {
       </section>
 
       {/* Story / About block */}
+      {/* Services Preview */}
+      <section
+        id="services"
+        className="bg-slate-50/60 border-y border-slate-100"
+      >
+        <div className="mx-auto max-w-7xl px-6 py-16">
+          <h3 className="text-3xl font-bold text-center">What We Offer</h3>
+          <p className="mt-2 text-center text-slate-600">
+            Pick the clean that fits your life.
+          </p>
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Standard Cleaning",
+                desc: "Recurring upkeep for kitchens, baths, dusting, floors and more.",
+              },
+              {
+                title: "Deep Cleaning",
+                desc: "Extra detail for appliances, baseboards, grout and hard‑to‑reach spots.",
+              },
+              {
+                title: "Move In / Out",
+                desc: "Turnkey cleans for a fresh start or smooth hand‑off.",
+              },
+              {
+                title: "Airbnb",
+                desc: "Recurring upkeep for kitchens, baths, dusting, floors and more.",
+              },
+              {
+                title: "College Dorms",
+                desc: "Extra detail for appliances, baseboards, grout and hard‑to‑reach spots.",
+              },
+              {
+                title: "Small Business Cleaning",
+                desc: "Turnkey cleans for a fresh start or smooth hand‑off.",
+              },
+              {
+                title: "Same Day Cleaning",
+                desc: "Recurring upkeep for kitchens, baths, dusting, floors and more.",
+              },
+              {
+                title: "Office Spaces",
+                desc: "Extra detail for appliances, baseboards, grout and hard‑to‑reach spots.",
+              },
+              {
+                title: "Reorganization",
+                desc: "Turnkey cleans for a fresh start or smooth hand‑off.",
+              },
+            ].map((s) => (
+              <div
+                key={s.title}
+                className="group rounded-3xl border border-slate-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5"
+              >
+                <div className="flex items-center justify-between">
+                  <h4 className="text-lg font-semibold">{s.title}</h4>
+                  <span className="rounded-full px-3 py-1 text-xs bg-blue-50 text-blue-700 border border-blue-100">
+                    Popular
+                  </span>
+                </div>
+                <p className="mt-3 text-slate-600">{s.desc}</p>
+                <a
+                  href="#contact"
+                  onClick={(e) => smoothScroll(e, "contact")}
+                  className="mt-5 inline-block text-sm font-medium text-blue-700 hover:underline"
+                >
+                  Get a Quote →
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="about" className="border-y border-slate-100 bg-slate-50/60">
         <div className="mx-auto max-w-7xl px-6 py-16 grid md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1">
             <h3 className="text-3xl font-bold">Our Story</h3>
             <p className="mt-4 text-slate-700">
-              Shiny Light began with a simple promise: dependable cleanings that
-              feel effortless. Today, our trained pros follow a consistent
-              checklist, communicate clearly, and treat every space like their
-              own.
+              Shiny Light Green was born out of determination, resilience, and a
+              vision for something better. In 2014, Marie Jeanne, a single
+              mother in New York City, set out to support her son and build a
+              future. With nothing more than hard work, determination, and a
+              desire to make ends meet, she launched her cleaning services on
+              Groupon—quickly earning a 5-star reputation for excellence and
+              trust.
             </p>
             <ul className="mt-6 space-y-3 text-slate-700">
               <li className="flex gap-3">
@@ -242,55 +318,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Preview */}
-      <section
-        id="services"
-        className="bg-slate-50/60 border-y border-slate-100"
-      >
-        <div className="mx-auto max-w-7xl px-6 py-16">
-          <h3 className="text-3xl font-bold text-center">What We Offer</h3>
-          <p className="mt-2 text-center text-slate-600">
-            Pick the clean that fits your life.
-          </p>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Standard Cleaning",
-                desc: "Recurring upkeep for kitchens, baths, dusting, floors and more.",
-              },
-              {
-                title: "Deep Cleaning",
-                desc: "Extra detail for appliances, baseboards, grout and hard‑to‑reach spots.",
-              },
-              {
-                title: "Move In / Out",
-                desc: "Turnkey cleans for a fresh start or smooth hand‑off.",
-              },
-            ].map((s) => (
-              <div
-                key={s.title}
-                className="group rounded-3xl border border-slate-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5"
-              >
-                <div className="flex items-center justify-between">
-                  <h4 className="text-lg font-semibold">{s.title}</h4>
-                  <span className="rounded-full px-3 py-1 text-xs bg-blue-50 text-blue-700 border border-blue-100">
-                    Popular
-                  </span>
-                </div>
-                <p className="mt-3 text-slate-600">{s.desc}</p>
-                <a
-                  href="#contact"
-                  onClick={(e) => smoothScroll(e, "contact")}
-                  className="mt-5 inline-block text-sm font-medium text-blue-700 hover:underline"
-                >
-                  Get a Quote →
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Reviews */}
       <section id="reviews" className="mx-auto max-w-7xl px-6 py-16">
         <h3 className="text-3xl font-bold text-center">
@@ -315,43 +342,29 @@ export default function Home() {
         </div>
 
         {/* Customer Photo Slideshow */}
-        <div className="mt-16">
+        {/* <div className="mt-16">
           <h3 className="text-3xl font-bold text-center">
             Customer Photo Gallery
           </h3>
-          <div className="mt-8 relative w-full max-w-3xl mx-auto">
-            <img
-              src={reviewImages[currentImage]}
-              alt={`Customer review ${currentImage + 1}`}
-              width={1600}
-              height={900}
-              className="rounded-2xl object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            <button
-              onClick={prevImage}
-              className="absolute top-1/2 left-0 -translate-y-1/2 bg-white/70 rounded-full p-2 shadow hover:bg-white"
-            >
-              ◀
-            </button>
-            <button
-              onClick={nextImage}
-              className="absolute top-1/2 right-0 -translate-y-1/2 bg-white/70 rounded-full p-2 shadow hover:bg-white"
-            >
-              ▶
-            </button>
-          </div>
-          <div className="mt-4 flex justify-center gap-2">
-            {reviewImages.map((_, idx) => (
-              <span
+          <p className="mt-2 text-center text-slate-600">
+            A few snapshots from happy clients ✨
+          </p>
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 justify-items-center">
+            {reviewImages.map((src, idx) => (
+              <div
                 key={idx}
-                className={`h-2 w-2 rounded-full ${
-                  idx === currentImage ? "bg-blue-600" : "bg-slate-300"
-                }`}
-              />
+                className="relative w-[300px] h-[500px] overflow-hidden rounded-2xl shadow-md"
+              >
+                <Image
+                  src={src}
+                  alt={`Customer review ${idx + 1}`}
+                  fill
+                  className="object-cover"
+                />
+              </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* FAQ */}
