@@ -64,7 +64,7 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <a href="">
               <img
-                src="/Marie-Jeanne-Bacchus-10.png"
+                src="/photos/Marie-Jeanne-Bacchus-10.png"
                 alt="Shiny Light Green Cleaning Services Logo"
                 className="h-8 w-auto"
               />
@@ -201,27 +201,27 @@ export default function Home() {
               },
               {
                 title: "Airbnb",
-                desc: "Recurring upkeep for kitchens, baths, dusting, floors and more.",
+                desc: "Furniture rearrangement and room clean up for that lucky guest.",
               },
               {
                 title: "College Dorms",
-                desc: "Extra detail for appliances, baseboards, grout and hard‑to‑reach spots.",
+                desc: "Need a hand with cleaning? We've got you covered - so you can go back to studying.",
               },
               {
                 title: "Small Business Cleaning",
-                desc: "Turnkey cleans for a fresh start or smooth hand‑off.",
+                desc: "Detailed cleaning on counters and behind chairs enabling you to just focus on the business.",
               },
               {
                 title: "Same Day Cleaning",
-                desc: "Recurring upkeep for kitchens, baths, dusting, floors and more.",
+                desc: "Have an emergency spill? Forgot to wash the dishes? Give us a call we've got you covered.",
               },
               {
                 title: "Office Spaces",
-                desc: "Extra detail for appliances, baseboards, grout and hard‑to‑reach spots.",
+                desc: "Give us a call to discuss cleaning solutions for medium to large office spaces.",
               },
               {
                 title: "Reorganization",
-                desc: "Turnkey cleans for a fresh start or smooth hand‑off.",
+                desc: "Not interested in cleaning but just a room upgrade? We'd love to assist you with your vision. ",
               },
             ].map((s) => (
               <div
@@ -259,9 +259,17 @@ export default function Home() {
               future. With nothing more than hard work, determination, and a
               desire to make ends meet, she launched her cleaning services on
               Groupon—quickly earning a 5-star reputation for excellence and
-              trust.
+              trust. A few years later, Marie Jeanne relocated to Philadelphia
+              with a bigger dream: to reinvent her business and create something
+              lasting. She founded Shiny Light Green Commercial Cleaning, a
+              company dedicated to delivering exceptional service while staying
+              true to her values of health, sustainability, and integrity.
+              Today, Shiny Light Green stands as a successful and growing
+              business—trusted by commercial clients across industries and
+              proudly connected to the community through the Clark Park Market
+              every Saturday.
             </p>
-            <ul className="mt-6 space-y-3 text-slate-700">
+            {/* <ul className="mt-6 space-y-3 text-slate-700">
               <li className="flex gap-3">
                 <span className="mt-1 h-2 w-2 rounded-full bg-blue-600"></span>{" "}
                 Flat, transparent pricing
@@ -274,12 +282,12 @@ export default function Home() {
                 <span className="mt-1 h-2 w-2 rounded-full bg-blue-600"></span>{" "}
                 Supplies included and green by default
               </li>
-            </ul>
+            </ul> */}
           </div>
           <div className="order-1 md:order-2">
             <div className="aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-xl">
               <img
-                src="/alberto-gasco-8mVRTpgYZtE-unsplash.jpg"
+                src="/photos/clement-dellandrea-pVLNny2Thxo-unsplash.jpg"
                 alt="The Bronx"
                 className="h-full w-full object-cover"
               />
@@ -497,7 +505,7 @@ export default function Home() {
           <div className="md:col-span-2">
             <div className="flex items-center gap-2">
               <img
-                src="/Marie-Jeanne-Bacchus-10.png"
+                src="/photos/Marie-Jeanne-Bacchus-10.png"
                 alt="Shiny Light Green Cleaning Services Logo"
                 className="h-8 w-auto"
               />
