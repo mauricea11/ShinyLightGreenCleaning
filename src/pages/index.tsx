@@ -188,53 +188,60 @@ export default function Home() {
           <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                title: "Standard Cleaning",
-                desc: "Recurring upkeep for kitchens, baths, dusting, floors and more.",
+                title: "Small businesses",
+                image: "/photos/benyamin-bohlouli-LZLdLR7vuHg-unsplash.jpg",
               },
               {
-                title: "Deep Cleaning",
-                desc: "Extra detail for appliances, baseboards, grout and hard‑to‑reach spots.",
+                title: "Professional Office",
+                image: "/photos/copernico-p_kICQCOM4s-unsplash.jpg",
               },
               {
-                title: "Move In / Out",
-                desc: "Turnkey cleans for a fresh start or smooth hand‑off.",
+                title: "Move in move out",
+                image: "/photos/hiveboxx-deX-KChuboY-unsplash.jpg",
               },
               {
                 title: "Airbnb",
-                desc: "Furniture rearrangement and room clean up for that lucky guest.",
+                image: "/photos/aes-5m3v4GBB82o-unsplash.jpg",
               },
               {
-                title: "College Dorms",
-                desc: "Need a hand with cleaning? We've got you covered - so you can go back to studying.",
+                title: "Hospitals",
+                image: "/photos/benyamin-bohlouli-e7MJLM5VGjY-unsplash.jpg",
               },
               {
-                title: "Small Business Cleaning",
-                desc: "Detailed cleaning on counters and behind chairs enabling you to just focus on the business.",
+                title: "Real estate clean outs",
+                image: "/photos/dillon-kydd-2keCPb73aQY-unsplash.jpg",
               },
               {
-                title: "Same Day Cleaning",
-                desc: "Have an emergency spill? Forgot to wash the dishes? Give us a call we've got you covered.",
+                title: "Schools and universities",
+                image: "/photos/gabriel-beaudry-WuQME0I_oZA-unsplash.jpg",
               },
               {
-                title: "Office Spaces",
-                desc: "Give us a call to discuss cleaning solutions for medium to large office spaces.",
+                title: "Car dealerships",
+                image: "/photos/i-m-zion-WnDC9k1aiZ8-unsplash.jpg",
               },
               {
-                title: "Reorganization",
-                desc: "Not interested in cleaning but just a room upgrade? We'd love to assist you with your vision. ",
+                title: "Cleaning products",
+                image: "/photos/jeshoots-com-__ZMnefoI3k-unsplash.jpg",
               },
             ].map((s) => (
               <div
                 key={s.title}
-                className="group rounded-3xl border border-slate-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5"
+                className="group rounded-3xl border border-slate-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 flex flex-col items-center text-center"
               >
-                <div className="flex items-center justify-between">
-                  <h4 className="text-lg font-semibold">{s.title}</h4>
-                  <span className="rounded-full px-3 py-1 text-xs bg-blue-50 text-blue-700 border border-blue-100">
-                    Popular
-                  </span>
+                {/* Circular Image */}
+                <div className="mb-6 h-44 w-44 rounded-full overflow-hidden shadow-md relative">
+                  <Image
+                    src={s.image}
+                    alt={s.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 176px"
+                    className="object-cover"
+                    priority
+                  />
                 </div>
-                <p className="mt-3 text-slate-600">{s.desc}</p>
+
+                <h4 className="text-lg font-semibold">{s.title}</h4>
+                {/* <p className="mt-3 text-slate-600">{s.desc}</p> */}
                 <a
                   href="#contact"
                   onClick={(e) => smoothScroll(e, "contact")}
@@ -285,11 +292,14 @@ export default function Home() {
             </ul> */}
           </div>
           <div className="order-1 md:order-2">
-            <div className="aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-xl">
-              <img
+            <div className="aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-xl relative">
+              <Image
                 src="/photos/clement-dellandrea-pVLNny2Thxo-unsplash.jpg"
                 alt="The Bronx"
-                className="h-full w-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+                priority
               />
             </div>
           </div>
