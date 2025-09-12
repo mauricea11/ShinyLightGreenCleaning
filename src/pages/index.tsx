@@ -127,7 +127,7 @@ export default function Home() {
               Locally owned • Insured & bonded
             </p>
             <h2 className="mt-3 text-4xl md:text-5xl font-extrabold leading-tight">
-              Thoughtful, reliable cleaning that lets your home shine
+              Thoughtful, reliable cleaning that lets your space shine
             </h2>
             <p className="mt-4 text-lg text-slate-600">
               From standard upkeep to deep resets, our pros bring hotel-level
@@ -160,7 +160,7 @@ export default function Home() {
               </div>
               <div className="rounded-2xl border border-slate-100 p-4 shadow-sm">
                 <p className="text-sm font-semibold">Insured & Bonded</p>
-                <p className="text-xs text-slate-600">Your home, protected</p>
+                <p className="text-xs text-slate-600">Your space, protected</p>
               </div>
               <div className="rounded-2xl border border-slate-100 p-4 shadow-sm">
                 <p className="text-sm font-semibold">Eco‑Friendly</p>
@@ -438,7 +438,7 @@ export default function Home() {
         <div className="rounded-3xl bg-gradient-to-r from-blue-600 to-blue-500 text-white p-10 shadow-xl">
           <div className="grid md:grid-cols-2 gap-6 items-center">
             <div>
-              <h3 className="text-3xl font-bold">Ready for a shinier home?</h3>
+              <h3 className="text-3xl font-bold">Ready to shine?</h3>
               <p className="mt-2 text-blue-50">
                 Tell us about your space and we’ll send a fast, fair quote.
               </p>
@@ -500,7 +500,7 @@ export default function Home() {
 
             <textarea
               name="message"
-              placeholder="Tell us about your home and ideal date"
+              placeholder="Tell us about your space and ideal date"
               className="w-full p-3 border rounded-xl md:col-span-2"
               rows={5}
               required
