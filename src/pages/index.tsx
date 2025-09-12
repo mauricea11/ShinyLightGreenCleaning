@@ -6,6 +6,8 @@ import Image from "next/image";
 
 export default function Home() {
   const [status, setStatus] = useState("");
+  const [selectedService, setSelectedService] = useState("");
+
   // const serviceID = process.env.NEXT_PUBLIC_SERVICE_ID;
   // const templateID = process.env.NEXT_PUBLIC_TEMPLATE_ID;
   // const publicKey = process.env.NEXT_PUBLIC_PUBLIC_KEY;
@@ -31,9 +33,13 @@ export default function Home() {
       .then(
         (result) => {
           console.log(result.text);
-          setStatus("Message sent successfully!");
+          setStatus("success"); // ✅ trigger toast
           form.reset();
+
+          // Auto-hide after 3 seconds
+          setTimeout(() => setStatus(""), 3000);
         },
+
         (error) => {
           console.log(error.text);
           setStatus("Failed to send message. Try again.");
@@ -244,7 +250,11 @@ export default function Home() {
                 {/* <p className="mt-3 text-slate-600">{s.desc}</p> */}
                 <a
                   href="#contact"
-                  onClick={(e) => smoothScroll(e, "contact")}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedService(s.title); // ✅ populate service field
+                    smoothScroll(e, "contact");
+                  }}
                   className="mt-5 inline-block text-sm font-medium text-blue-700 hover:underline"
                 >
                   Get a Quote →
@@ -483,8 +493,11 @@ export default function Home() {
               name="service"
               placeholder="Service interested in"
               className="w-full p-3 border rounded-xl md:col-span-2"
+              value={selectedService}
+              onChange={(e) => setSelectedService(e.target.value)} // ✅ still editable
               required
             />
+
             <textarea
               name="message"
               placeholder="Tell us about your home and ideal date"
@@ -498,8 +511,16 @@ export default function Home() {
             >
               Request Quote
             </button>
-            {status && (
-              <p className="md:col-span-2 text-center mt-2 text-sm">{status}</p>
+            {status === "success" && (
+              <div className="fixed bottom-6 right-6 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg animate-slide-in">
+                ✅ Message sent successfully!
+              </div>
+            )}
+
+            {status === "error" && (
+              <div className="fixed bottom-6 right-6 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg animate-slide-in">
+                ❌ Failed to send message. Try again.
+              </div>
             )}
           </form>
 
