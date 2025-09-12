@@ -76,7 +76,7 @@ export default function Home() {
               />
             </a>
             <h1 className="text-xl font-semibold tracking-tight">
-              Shiny Light Cleaning Services
+              Shiny Light Green Cleaning Services llc.
             </h1>
           </div>
           <nav className="hidden md:flex items-center gap-6 text-sm">
@@ -127,7 +127,7 @@ export default function Home() {
               Locally owned • Insured & bonded
             </p>
             <h2 className="mt-3 text-4xl md:text-5xl font-extrabold leading-tight">
-              Thoughtful, reliable cleaning that lets your space shine
+              Let Shiny Light Green Cleaning Services brighten up your space!
             </h2>
             <p className="mt-4 text-lg text-slate-600">
               From standard upkeep to deep resets, our pros bring hotel-level
@@ -270,21 +270,21 @@ export default function Home() {
           <div className="order-2 md:order-1">
             <h3 className="text-3xl font-bold">Our Story</h3>
             <p className="mt-4 text-slate-700">
-              Shiny Light Green was born out of determination, resilience, and a
-              vision for something better. In 2014, Marie Jeanne, a single
-              mother in New York City, set out to support her son and build a
-              future. With nothing more than hard work, determination, and a
-              desire to make ends meet, she launched her cleaning services on
-              Groupon—quickly earning a 5-star reputation for excellence and
-              trust. A few years later, Marie Jeanne relocated to Philadelphia
-              with a bigger dream: to reinvent her business and create something
-              lasting. She founded Shiny Light Green Commercial Cleaning, a
-              company dedicated to delivering exceptional service while staying
-              true to her values of health, sustainability, and integrity.
-              Today, Shiny Light Green stands as a successful and growing
-              business—trusted by commercial clients across industries and
-              proudly connected to the community through the Clark Park Market
-              every Saturday.
+              Shiny Light Green Cleaning Services was born out of determination,
+              resilience, and a vision for something better. In 2014, Marie
+              Jeanne, a single mother in New York City, set out to support her
+              son and build a future. With nothing more than hard work,
+              determination, and a desire to make ends meet, she launched her
+              cleaning services on Groupon—quickly earning a 5-star reputation
+              for excellence and trust. A few years later, Marie Jeanne
+              relocated to Philadelphia with a bigger dream: to reinvent her
+              business and create something lasting. She founded Shiny Light
+              Green Commercial Cleaning, a company dedicated to delivering
+              exceptional service while staying true to her values of health,
+              sustainability, and integrity. Today, Shiny Light stands as a
+              successful and growing business—trusted by commercial clients
+              across industries and proudly connected to the community through
+              the Clark Park Market every Saturday.
             </p>
             {/* <ul className="mt-6 space-y-3 text-slate-700">
               <li className="flex gap-3">
@@ -409,7 +409,7 @@ export default function Home() {
               },
               {
                 q: "Where are you located?",
-                a: "We are located in West Philadelphia and cover Philadelphia and the surrounding 5 mile area.",
+                a: "We are located in Philadelphia and cover all 50 states.",
               },
               {
                 q: "What is your cancellation policy?",
@@ -438,7 +438,9 @@ export default function Home() {
         <div className="rounded-3xl bg-gradient-to-r from-blue-600 to-blue-500 text-white p-10 shadow-xl">
           <div className="grid md:grid-cols-2 gap-6 items-center">
             <div>
-              <h3 className="text-3xl font-bold">Ready to shine?</h3>
+              <h3 className="text-3xl font-bold">
+                Ready to get your space sparkly and shiny?
+              </h3>
               <p className="mt-2 text-blue-50">
                 Tell us about your space and we’ll send a fast, fair quote.
               </p>
@@ -542,7 +544,7 @@ export default function Home() {
               />
 
               <span className="font-semibold">
-                Shiny Light Cleaning Services
+                Shiny Light Green Cleaning Services llc.
               </span>
             </div>
             <p className="mt-3 text-sm text-slate-400">
@@ -591,8 +593,8 @@ export default function Home() {
           </div>
         </div>
         <div className="border-t border-slate-800 py-4 text-center text-xs text-slate-500">
-          © {new Date().getFullYear()} Shiny Light Cleaning Services llc. All
-          rights reserved.
+          © {new Date().getFullYear()} Shiny Light Green Cleaning Services llc.
+          All rights reserved.
         </div>
       </footer>
     </main>
