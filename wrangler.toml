@@ -1,0 +1,5 @@
+name = "shiny-light-next-app"
+compatibility_date = "2025-09-11" # use today's date
+
+[site]
+bucket = ".vercel/output/static"
