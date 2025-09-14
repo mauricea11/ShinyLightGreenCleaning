@@ -3,6 +3,7 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import Image from "next/image";
+import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 
 export default function Home() {
   const [status, setStatus] = useState("");
@@ -109,6 +110,13 @@ export default function Home() {
               FAQ
             </a>
             <a
+              href="https://accounts.shopify.com/select?rid=76799fe7-5095-4a77-8df8-154f39200e6b"
+              className="hover:text-blue-600"
+              target="_blank"
+            >
+              Cleaning Products
+            </a>
+            <a
               href="#contact"
               onClick={(e) => smoothScroll(e, "contact")}
               className="px-4 py-2 rounded-xl bg-blue-600 text-white shadow hover:bg-blue-700"
@@ -194,7 +202,7 @@ export default function Home() {
           <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                title: "Small businesses",
+                title: "Small Businesses",
                 image: "/photos/benyamin-bohlouli-LZLdLR7vuHg-unsplash.jpg",
               },
               {
@@ -202,7 +210,7 @@ export default function Home() {
                 image: "/photos/copernico-p_kICQCOM4s-unsplash.jpg",
               },
               {
-                title: "Move in move out",
+                title: "Move in and Out",
                 image: "/photos/hiveboxx-deX-KChuboY-unsplash.jpg",
               },
               {
@@ -211,23 +219,23 @@ export default function Home() {
               },
               {
                 title: "Hospitals",
-                image: "/photos/benyamin-bohlouli-e7MJLM5VGjY-unsplash.jpg",
+                image: "/photos/adhy-savala-zbpgmGe27p8-unsplash.jpg",
               },
               {
-                title: "Real estate clean outs",
+                title: "Real Estate Clean Outs",
                 image: "/photos/dillon-kydd-2keCPb73aQY-unsplash.jpg",
               },
               {
-                title: "Schools and universities",
-                image: "/photos/gabriel-beaudry-WuQME0I_oZA-unsplash.jpg",
+                title: "Schools and Universities",
+                image: "/photos/nathan-cima-Qw6wa96IvvQ-unsplash.jpg",
               },
               {
-                title: "Car dealerships",
+                title: "Car Dealerships",
                 image: "/photos/i-m-zion-WnDC9k1aiZ8-unsplash.jpg",
               },
               {
-                title: "Cleaning products",
-                image: "/photos/jeshoots-com-__ZMnefoI3k-unsplash.jpg",
+                title: "Construction",
+                image: "/photos/stefan-lehner-biRt6RXejuk-unsplash.jpg",
               },
             ].map((s) => (
               <div
@@ -281,10 +289,12 @@ export default function Home() {
               business and create something lasting. She founded Shiny Light
               Green Commercial Cleaning, a company dedicated to delivering
               exceptional service while staying true to her values of health,
-              sustainability, and integrity. Today, Shiny Light stands as a
-              successful and growing business—trusted by commercial clients
-              across industries and proudly connected to the community through
-              the Clark Park Market every Saturday.
+              sustainability, and integrity. Today, Shiny Light Green Cleaning
+              Services stands as a successful and growing business—trusted by
+              commercial clients across industries. As a token to its mission of
+              being evironmentally conscious, Shiny Light Green Cleaning
+              Services is proudly accessible through the Clark Park Market every
+              Saturday.
             </p>
             {/* <ul className="mt-6 space-y-3 text-slate-700">
               <li className="flex gap-3">
@@ -405,7 +415,7 @@ export default function Home() {
             {[
               {
                 q: "What do I need to prepare before my clean?",
-                a: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus asperiores illo fugiat, quaerat autem doloremque rerum qui praesentium impedit deserunt assumenda perferendis ratione ea tempora expedita. Exercitationem est praesentium aliquid.",
+                a: "Ensure building access is arranged (keys, fobs, codes, or security escort). Clear desks, counters, and work surfaces of personal items or sensitive documents. Confirm running water, electricity, and HVAC are available during cleaning. Assign a point of contact for cleaning updates or questions.",
               },
               {
                 q: "Where are you located?",
@@ -413,7 +423,7 @@ export default function Home() {
               },
               {
                 q: "What is your cancellation policy?",
-                a: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus asperiores illo fugiat, quaerat autem doloremque rerum qui praesentium impedit deserunt assumenda perferendis ratione ea tempora expedita. Exercitationem est praesentium aliquid.",
+                a: "We understand that schedules can change. To provide the best service to all clients and respect our team’s time, we ask that you review our cancellation guidelines: Notice Period: cancellations must be made at least 48 hours in advance of the scheduled cleaning. Recurring Contracts: For clients on weekly, bi-weekly, or monthly contracts, more than two consecutive cancellations may result in adjustment of service frequency or contract review. Rescheduling: We are happy to reschedule your appointment at no additional charge if you notify us 48 hours in advance. Rescheduled appointments are subject to availability. Emergency Exceptions: We understand emergencies happen. At our discretion, fees may be waived in the case of urgent, unavoidable circumstances.",
               },
             ].map((item) => (
               <details
@@ -587,8 +597,39 @@ export default function Home() {
           <div>
             <p className="font-semibold">Get in Touch</p>
             <ul className="mt-3 space-y-2 text-sm text-slate-400">
-              <li>267-299-8404</li>
-              <li>Mon–Sat, 8am–6pm</li>
+              <li>267-299-8404 | Mon–Sat, 8am–6pm</li>
+              <li>Products email: shinylightgreen@gmail.com</li>
+              <li>
+                <div className="flex gap-4 mt-2">
+                  <a
+                    href="https://facebook.com/Shiny Light Green Cleaning"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 hover:text-white transition-colors"
+                  >
+                    <FaFacebookF className="text-blue-500" size={18} />
+                    <span>Facebook</span>
+                  </a>
+                  <a
+                    href="https://instagram.com/@shinylight934"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 hover:text-white transition-colors"
+                  >
+                    <FaInstagram className="text-pink-500" size={18} />
+                    <span>Instagram</span>
+                  </a>
+                  <a
+                    href="https://tiktok.com/@mariebacchus876"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 hover:text-white transition-colors"
+                  >
+                    <FaTiktok className="text-slate-200" size={18} />
+                    <span>TikTok</span>
+                  </a>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
