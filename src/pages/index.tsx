@@ -22,6 +22,30 @@ export default function Home() {
     }
   }, [menuOpen]);
 
+  const [highlightProgress, setHighlightProgress] = useState(0);
+
+  useEffect(() => {
+    const hero = document.getElementById("about");
+    if (!hero) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setHighlightProgress(entry.intersectionRatio); // 0 → 1
+        });
+      },
+      {
+        threshold: Array.from({ length: 101 }, (_, i) => i / 100), // 0, .01, .02, ... 1
+      }
+    );
+
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
+
+  // intersectionRatio speed for marker stroke
+  const adjustedProgress = Math.min(1, (1 - highlightProgress) * 3.5);
+
   // Robust smooth scroll:
   // - Subtract header height so sticky header doesn't cover the section
   // - Use luxy scroll only if luxy instance exposes a proper scrollTo function
@@ -153,8 +177,17 @@ export default function Home() {
                 Locally owned • Insured & bonded
               </p>
               <h2 className="mt-3 text-4xl md:text-5xl font-extrabold leading-tight">
-                Let Shiny Light Green Cleaning Services brighten up your space!
+                Let Shiny Light Green Cleaning Services{" "}
+                <span className="relative inline-block">
+                  brighten
+                  <span
+                    className="absolute left-0 -bottom-2 h-2 bg-yellow-300 rounded-sm transition-[width] duration-150 ease-out"
+                    style={{ width: `${adjustedProgress * 100}%` }}
+                  />
+                </span>{" "}
+                up your space!
               </h2>
+
               <p className="mt-4 text-lg text-slate-600">
                 From standard upkeep to deep resets, our pros bring hotel-level
                 detail to every visit—eco-friendly products, honest pricing, and
