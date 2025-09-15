@@ -7,6 +7,20 @@ import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useEffect } from "react";
 
+declare global {
+  interface Window {
+    luxy?: {
+      init?: (options?: {
+        wrapper?: string;
+        targets?: string;
+        wrapperSpeed?: number;
+      }) => void;
+      destroy?: () => void;
+      scrollTo?: (y: number) => void;
+    };
+  }
+}
+
 export default function Home() {
   const [status, setStatus] = useState("");
   const [selectedService, setSelectedService] = useState("");
@@ -44,7 +58,7 @@ export default function Home() {
   }, []);
 
   // intersectionRatio speed for marker stroke
-  const adjustedProgress = Math.min(1, (1 - highlightProgress) * 3.5);
+  const adjustedProgress = Math.min(1, (1 - highlightProgress) * 4);
 
   // Robust smooth scroll:
   // - Subtract header height so sticky header doesn't cover the section
@@ -59,27 +73,17 @@ export default function Home() {
     const headerEl = document.querySelector("header");
     const headerHeight = headerEl ? headerEl.getBoundingClientRect().height : 0;
 
-    // element top relative to document, minus header height
     const top =
       el.getBoundingClientRect().top + window.pageYOffset - headerHeight;
 
-    const possibleLuxy = (window as any).luxy;
+    const possibleLuxy = window.luxy;
 
-    // If luxy exists and is the luxy instance AND has a scrollTo function, use it.
-    // (Some versions may not expose scrollTo — in that case fallback to window.scrollTo.)
-    if (
-      possibleLuxy &&
-      typeof possibleLuxy === "object" &&
-      typeof possibleLuxy.init === "function" &&
-      typeof possibleLuxy.scrollTo === "function"
-    ) {
+    if (possibleLuxy?.scrollTo) {
       possibleLuxy.scrollTo(top);
     } else {
-      // Fallback: scroll the document — luxy listens to document scroll and will animate.
-      // Use smooth behavior so it feels nice.
       window.scrollTo({ top, behavior: "smooth" });
     }
-  };
+  }; // ✅ close smoothScroll here
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -109,7 +113,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white text-slate-900">
-      {/* Top Bar - OUTSIDE #luxy so sticky works */}
+      {/* Top Bar - OUTSIDE #luxy */}
       <header className="fixed top-0 left-0 right-0 z-[9999] bg-white/80 backdrop-blur border-b border-slate-100">
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
           {/* Logo + title */}
@@ -122,7 +126,7 @@ export default function Home() {
               />
             </a>
             <h1 className="text-xl font-semibold tracking-tight">
-              Shiny Light Green Cleaning Services llc.
+              Shiny Light Green Cleaning Services
             </h1>
           </div>
 
@@ -145,7 +149,7 @@ export default function Home() {
               target="_blank"
               className="hover:text-[#455d58]"
             >
-              Cleaning Products
+              Product Store
             </a>
             <a
               href="#contact"
@@ -361,7 +365,28 @@ export default function Home() {
                 },
                 {
                   q: "What is your cancellation policy?",
-                  a: "We understand that schedules can change. To provide the best service to all clients and respect our team’s time, we ask that you review our cancellation guidelines: Notice Period: cancellations must be made at least 48 hours in advance of the scheduled cleaning. Recurring Contracts: For clients on weekly, bi-weekly, or monthly contracts, more than two consecutive cancellations may result in adjustment of service frequency or contract review. Rescheduling: We are happy to reschedule your appointment at no additional charge if you notify us 48 hours in advance. Rescheduled appointments are subject to availability. Emergency Exceptions: We understand emergencies happen. At our discretion, fees may be waived in the case of urgent, unavoidable circumstances.",
+                  a: [
+                    {
+                      label: "",
+                      text: "We understand that schedules can change. To provide the best service to all clients and respect our team’s time, we ask that you review our cancellation guidelines:",
+                    },
+                    {
+                      label: "Notice Period:",
+                      text: "cancellations must be made at least 48 hours in advance of the scheduled cleaning.",
+                    },
+                    {
+                      label: "Recurring Contracts:",
+                      text: "For clients on weekly, bi-weekly, or monthly contracts, more than two consecutive cancellations may result in adjustment of service frequency or contract review.",
+                    },
+                    {
+                      label: "Rescheduling:",
+                      text: "We are happy to reschedule your appointment at no additional charge if you notify us 48 hours in advance. Rescheduled appointments are subject to availability.",
+                    },
+                    {
+                      label: "Emergency Exceptions:",
+                      text: "We understand emergencies happen. At our discretion, fees may be waived in the case of urgent, unavoidable circumstances.",
+                    },
+                  ],
                 },
               ].map((item) => (
                 <details
@@ -374,7 +399,20 @@ export default function Home() {
                       +
                     </span>
                   </summary>
-                  <p className="mt-3 text-slate-600">{item.a}</p>
+
+                  {/* Render string OR array */}
+                  {Array.isArray(item.a) ? (
+                    item.a.map((para, i) => (
+                      <p key={i} className="mt-3 text-slate-600">
+                        {para.label && (
+                          <span className="font-semibold">{para.label} </span>
+                        )}
+                        {para.text}
+                      </p>
+                    ))
+                  ) : (
+                    <p className="mt-3 text-slate-600">{item.a}</p>
+                  )}
                 </details>
               ))}
             </div>
