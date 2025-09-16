@@ -40,7 +40,7 @@ export default function Home() {
   const [highlightProgress, setHighlightProgress] = useState(0);
 
   useEffect(() => {
-    const hero = document.getElementById("about");
+    const hero = document.getElementById("hero");
     if (!hero) return;
 
     const handleScroll = () => {
@@ -185,7 +185,7 @@ export default function Home() {
       {/* Luxy wrapper for scrollable content ONLY */}
       <div id="luxy" className="pt-20">
         {/* Hero */}
-        <section id="about" className="relative">
+        <section id="hero" className="relative">
           <div className="mx-auto max-w-7xl px-6 py-16 grid md:grid-cols-2 gap-10 items-center">
             <div>
               <p className="uppercase tracking-widest text-xs text-[#455d58]/70 font-semibold">
@@ -215,6 +215,48 @@ export default function Home() {
                   src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1600&auto=format&fit=crop"
                   alt="Cleaner tidying a bright kitchen"
                   className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* About */}
+        <section
+          id="about"
+          className="snap-start h-screen flex items-center justify-center px-6 bg-slate-50"
+        >
+          <div className="grid md:grid-cols-2 gap-12 items-center max-w-7xl">
+            <div>
+              <h3 className="text-3xl font-bold">10 years in the making</h3>
+              <p className="mt-4 text-slate-700">
+                Shiny Light Green Cleaning Services was born out of
+                determination, resilience, and a vision for something better. In
+                2014, Marie Jeanne, a single mother in New York City, set out to
+                support her son and build a future. With nothing more than hard
+                work, determination, and a desire to make ends meet, she
+                launched her cleaning services on Groupon—quickly earning a
+                5-star reputation for excellence and trust. A few years later,
+                Marie Jeanne relocated to Philadelphia with a bigger dream: to
+                reinvent her business and create something lasting. She founded
+                Shiny Light Green Commercial Cleaning, a company dedicated to
+                delivering exceptional service while staying true to her values
+                of health, sustainability, and integrity. Today, Shiny Light
+                Green Cleaning Services stands as a successful and growing
+                business—trusted by commercial clients across industries. As a
+                token to its mission of being evironmentally conscious, Shiny
+                Light Green Cleaning Services is proudly accessible through the
+                Clark Park Market every Saturday.
+              </p>
+            </div>
+            <div>
+              <div className="aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-xl relative">
+                <Image
+                  src="/photos/clement-dellandrea-pVLNny2Thxo-unsplash.jpg"
+                  alt="The Bronx"
+                  fill
+                  className="object-cover"
+                  priority
                 />
               </div>
             </div>
