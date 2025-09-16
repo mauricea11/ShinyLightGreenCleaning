@@ -36,33 +36,46 @@ export default function Home() {
     }
   }, [menuOpen]);
 
+  // Highlight progress state
   const [highlightProgress, setHighlightProgress] = useState(0);
 
   useEffect(() => {
     const hero = document.getElementById("about");
     if (!hero) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setHighlightProgress(entry.intersectionRatio); // 0 → 1
-        });
-      },
-      {
-        threshold: Array.from({ length: 101 }, (_, i) => i / 100), // 0, .01, .02, ... 1
-      }
-    );
+    const handleScroll = () => {
+      const rect = hero.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
 
-    observer.observe(hero);
-    return () => observer.disconnect();
+      // How much of hero is visible
+      const visible = Math.max(
+        0,
+        Math.min(rect.height, windowHeight - Math.max(0, rect.top))
+      );
+
+      const ratio = visible / rect.height;
+
+      // Reset completely when hero is above viewport
+      if (rect.top >= 0) {
+        setHighlightProgress(0);
+      } else if (rect.bottom <= 0) {
+        setHighlightProgress(1);
+      } else {
+        setHighlightProgress(ratio);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // run once on mount (ensures reset on reload)
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // intersectionRatio speed for marker stroke
-  const adjustedProgress = Math.min(1, (1 - highlightProgress) * 4);
+  // Speed multiplier for stroke
+  const adjustedProgress = Math.min(1, highlightProgress * 0.75); // speed
 
   // Robust smooth scroll:
   // - Subtract header height so sticky header doesn't cover the section
-  // - Use luxy scroll only if luxy instance exposes a proper scrollTo function
   // - Otherwise use window.scrollTo with smooth behavior
   const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -104,7 +117,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white text-slate-900">
       {/* Top Bar - OUTSIDE #luxy */}
-      <header className="fixed top-0 left-0 right-0 z-[9999] bg-white/80 backdrop-blur border-b border-slate-100">
+      <header className="fixed top-0 left-0 right-0 z-[9999] bg-white lg:bg-white/80 lg:backdrop-blur border-b border-slate-100">
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
           {/* Logo + title */}
           <div className="flex items-center gap-2">
@@ -123,7 +136,7 @@ export default function Home() {
               />
             </a>
 
-            <h1 className="text-xl font-semibold tracking-tight">
+            <h1 className="text-xl font-semibold tracking-tight max-[485px]:hidden">
               Shiny Light Green Cleaning Services
             </h1>
           </div>
