@@ -118,13 +118,21 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
           {/* Logo + title */}
           <div className="flex items-center gap-2">
-            <a href="">
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setHighlightProgress(0); // reset highlight completely
+                window.scrollTo({ top: 0, behavior: "smooth" }); // scroll to top
+              }}
+            >
               <img
                 src="/photos/Marie-Jeanne-Bacchus-10.png"
                 alt="Shiny Light Green Cleaning Services Logo"
                 className="h-8 w-auto"
               />
             </a>
+
             <h1 className="text-xl font-semibold tracking-tight">
               Shiny Light Green Cleaning Services
             </h1>
@@ -238,11 +246,12 @@ export default function Home() {
                 },
                 {
                   title: "Airbnb",
-                  image: "/photos/aes-5m3v4GBB82o-unsplash.jpg",
+                  image: "/photos/Kitchen seating area.png",
                 },
                 {
                   title: "Hospitals",
-                  image: "/photos/adhy-savala-zbpgmGe27p8-unsplash.jpg",
+                  image:
+                    "/photos/martha-dominguez-de-gouveia-KF-h9HMxRKg-unsplash.jpg",
                 },
                 {
                   title: "Real Estate Clean Outs",
@@ -566,7 +575,11 @@ export default function Home() {
             </div>
 
             <div>
-              <p className="font-semibold">Follow Us</p>
+              <p className="font-semibold">Contact Us</p>
+              <p className="mt-3 text-sm text-slate-100">
+                shinylightgreen@gmail.com
+              </p>
+              <p className="mt-3 text-sm text-slate-100">267-299-8404</p>
               <div className="mt-3 flex gap-4">
                 <a
                   href="https://facebook.com"
