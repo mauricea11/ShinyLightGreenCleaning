@@ -266,7 +266,8 @@ export default function Home() {
               ].map((s) => (
                 <div
                   key={s.title}
-                  className="group rounded-3xl border border-slate-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 flex flex-col items-center text-center"
+                  className="flex flex-col items-center text-center"
+                  // group rounded-3xl border border-slate-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5
                 >
                   <div className="mb-6 h-44 w-44 rounded-full overflow-hidden shadow-md relative">
                     <Image
