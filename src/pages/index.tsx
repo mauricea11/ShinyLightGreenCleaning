@@ -76,13 +76,7 @@ export default function Home() {
     const top =
       el.getBoundingClientRect().top + window.pageYOffset - headerHeight;
 
-    const possibleLuxy = window.luxy;
-
-    if (possibleLuxy?.scrollTo) {
-      possibleLuxy.scrollTo(top);
-    } else {
-      window.scrollTo({ top, behavior: "smooth" });
-    }
+    window.scrollTo({ top, behavior: "smooth" });
   }; // ✅ close smoothScroll here
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {

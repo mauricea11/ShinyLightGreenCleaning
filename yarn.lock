@@ -3998,13 +3998,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"luxy.js@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "luxy.js@npm:0.1.0"
-  checksum: 10c0/e6182b741092d6251f0db9f1a5df1f3753ca16fcb069221c9793e243fca4b9234506e945c77a5ab9b66cb1e0e93e7973c9f38a1e3848eda1a6793126ef96e1f1
-  languageName: node
-  linkType: hard
-
 "magic-string@npm:^0.30.18":
   version: 0.30.19
   resolution: "magic-string@npm:0.30.19"
@@ -4805,7 +4798,6 @@ __metadata:
     eslint-config-next: "npm:15.5.2"
     framer-motion: "npm:^12.23.12"
     lucide-react: "npm:^0.544.0"
-    luxy.js: "npm:^0.1.0"
     next: "npm:15.5.2"
     postcss: "npm:^8.5.6"
     react: "npm:19.1.0"
