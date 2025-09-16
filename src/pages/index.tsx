@@ -79,30 +79,26 @@ export default function Home() {
     window.scrollTo({ top, behavior: "smooth" });
   }; // ✅ close smoothScroll here
 
-  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+  const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
+    const formData = new FormData(form);
 
-    emailjs
-      .sendForm(
-        "service_7ad8vub",
-        "template_jrzkgpm",
-        form,
-        "_QUr_BayH9eL25mRz"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          setStatus("success");
-          form.reset();
-          setTimeout(() => setStatus(""), 3000);
-        },
-        (error) => {
-          console.log(error.text);
-          setStatus("error");
-          form.reset();
-        }
-      );
+    const response = await fetch("/api/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(Object.fromEntries(formData)),
+    });
+
+    if (response.ok) {
+      setStatus("success");
+      form.reset();
+      setTimeout(() => setStatus(""), 3000);
+    } else {
+      setStatus("error");
+    }
   };
 
   return (
@@ -147,7 +143,7 @@ export default function Home() {
               FAQ
             </a>
             <a
-              href="https://accounts.shopify.com/select?rid=..."
+              href="https://acayjv-mz.myshopify.com/"
               target="_blank"
               className="hover:text-[#455d58]"
             >
