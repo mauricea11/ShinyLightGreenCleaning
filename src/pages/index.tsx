@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import Image from "next/image";
 import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { useEffect } from "react";
+// (useEffect and useRef imported above)
+import Link from "next/link";
+import { services } from "@/data/services"; // adjust path if needed
 
 declare global {
   interface Window {
@@ -28,6 +30,9 @@ export default function Home() {
 
   const closeMenu = () => setMenuOpen(false);
 
+  const leftColRef = useRef<HTMLDivElement | null>(null);
+  const rightColRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden"; // disable scroll
@@ -35,6 +40,27 @@ export default function Home() {
       document.body.style.overflow = ""; // reset
     }
   }, [menuOpen]);
+
+  // Make left column taller than right column on md+ screens
+  useEffect(() => {
+    const update = () => {
+      if (!leftColRef.current || !rightColRef.current) return;
+      if (typeof window === "undefined") return;
+      if (window.innerWidth >= 768) {
+        const rightH = Math.ceil(rightColRef.current.getBoundingClientRect().height);
+        const desired = rightH + 40;
+        const cap = Math.round(window.innerHeight * 0.6); // cap at 60vh
+        const final = Math.max(360, Math.min(desired, cap));
+        leftColRef.current.style.minHeight = `${final}px`;
+      } else {
+        leftColRef.current.style.minHeight = "";
+      }
+    };
+
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   // Highlight progress state
   const [highlightProgress, setHighlightProgress] = useState(0);
@@ -227,15 +253,15 @@ export default function Home() {
         {/* About */}
         <section
           id="about"
-          className="snap-start flex items-center justify-center px-6 py-16 bg-slate-50"
+          className="snap-start flex items-center justify-center px-6 py-16 "
         >
-          <div className="grid md:grid-cols-2 gap-12 items-center max-w-7xl w-full">
+          <div className="grid md:grid-cols-2 gap-12 items-center md:items-stretch max-w-7xl w-full">
             {/* Image + Heading column */}
-            <div className="order-1 md:order-1">
+            <div ref={leftColRef} className="order-1 md:order-1 md:flex md:flex-col">
               <h3 className="text-3xl font-bold mb-4 text-center">
-                10 years in the making
+                To New Beginnings
               </h3>
-              <div className="aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-xl relative">
+              <div className="aspect-[4/3] md:aspect-auto w-full rounded-3xl overflow-hidden shadow-xl relative md:flex-1 md:h-full">
                 <Image
                   src="/photos/clement-dellandrea-pVLNny2Thxo-unsplash.jpg"
                   alt="The Bronx"
@@ -247,35 +273,20 @@ export default function Home() {
             </div>
 
             {/* Text column */}
-            <div className="order-2 md:order-2">
+            <div ref={rightColRef} className="order-2 md:order-2 md:flex md:items-start md:pt-10">
               <p className="text-slate-700">
-                Shiny Light Green Cleaning Services was born out of
-                determination, resilience, and a vision for something better. In
-                2014, Marie Jeanne, a single mother in New York City, set out to
-                support her son and build a future. With nothing more than hard
-                work, determination, and a desire to make ends meet, she
-                launched her cleaning services on Groupon— quickly earning a
-                5-star reputation for excellence and trust. A few years later,
-                Marie Jeanne relocated to Philadelphia with a bigger dream: to
-                reinvent her business and create something lasting. She founded
-                Shiny Light Green Commercial Cleaning, a company dedicated to
-                delivering exceptional service while staying true to her values
-                of health, sustainability, and integrity. Today, Shiny Light
-                Green Cleaning Services stands as a successful and growing
-                business—trusted by commercial clients across industries. As a
-                token to its mission of being environmentally conscious, Shiny
-                Light Green Cleaning Services is proudly accessible through the{" "}
-                <strong>Clark Park Market every Saturday.</strong>
+                Shiny Light Green Cleaning Services was born out of determination, resilience, and a vision for something better. In 2014, Marie Jeanne, a single mother in New York City, set out to support her son and build a future. With hard work, determination, and a commitment to quality, she launched her cleaning services on Groupon—quickly earning a 5-star reputation built on excellence and trust.
+
+A few years later, Marie Jeanne relocated to Philadelphia with a larger vision: to reinvent her business and create something lasting. She founded Shiny Light Green Commercial Cleaning, a company dedicated to delivering exceptional service while staying true to its values of health, sustainability, and integrity. As part of this mission, Marie Jeanne began creating and using natural, non-toxic cleaning products, ensuring safer environments for clients, staff, and the community.
+
+Today, Shiny Light Green Cleaning Services is a successful and growing business trusted by commercial clients across industries. In support of its environmentally conscious mission, Shiny Light Green proudly shares its natural cleaning products with the community through the Clark Park Farmers Market every Saturday.
               </p>
             </div>
           </div>
         </section>
 
         {/* Services */}
-        <section
-          id="services"
-          className="bg-slate-50/60 border-y border-slate-100"
-        >
+        <section id="services">
           {/* ... keep your Services content unchanged ... */}
           <div className="mx-auto max-w-7xl px-6 py-16">
             <h3 className="text-3xl font-bold text-center">What We Offer</h3>
@@ -283,50 +294,10 @@ export default function Home() {
               Pick the clean that fits your life.
             </p>
             <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* ... same services array mapping ... */}
-              {[
-                {
-                  title: "Small Businesses",
-                  image: "/photos/benyamin-bohlouli-LZLdLR7vuHg-unsplash.jpg",
-                },
-                {
-                  title: "Professional Office",
-                  image: "/photos/copernico-p_kICQCOM4s-unsplash.jpg",
-                },
-                {
-                  title: "Move in and Out",
-                  image: "/photos/hiveboxx-deX-KChuboY-unsplash.jpg",
-                },
-                {
-                  title: "Airbnb",
-                  image: "/photos/Kitchen seating area.png",
-                },
-                {
-                  title: "Hospitals",
-                  image:
-                    "/photos/martha-dominguez-de-gouveia-KF-h9HMxRKg-unsplash.jpg",
-                },
-                {
-                  title: "Real Estate Clean Outs",
-                  image: "/photos/dillon-kydd-2keCPb73aQY-unsplash.jpg",
-                },
-                {
-                  title: "Schools and Universities",
-                  image: "/photos/nathan-cima-Qw6wa96IvvQ-unsplash.jpg",
-                },
-                {
-                  title: "Car Dealerships",
-                  image: "/photos/i-m-zion-WnDC9k1aiZ8-unsplash.jpg",
-                },
-                {
-                  title: "Construction",
-                  image: "/photos/stefan-lehner-biRt6RXejuk-unsplash.jpg",
-                },
-              ].map((s) => (
+              {services.map((s) => (
                 <div
-                  key={s.title}
-                  className="flex flex-col items-center text-center"
-                  // group rounded-3xl border border-slate-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5
+                  key={s.slug}
+                  className="group rounded-3xl border border-slate-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 flex flex-col items-center text-center"
                 >
                   <div className="mb-6 h-44 w-44 rounded-full overflow-hidden shadow-md relative">
                     <Image
@@ -339,17 +310,12 @@ export default function Home() {
                     />
                   </div>
                   <h4 className="text-lg font-semibold">{s.title}</h4>
-                  <a
-                    href="#contact"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setSelectedService(s.title);
-                      smoothScroll(e, "contact");
-                    }}
+                  <Link
+                    href={`/services/${s.slug}`}
                     className="mt-5 inline-block text-sm font-medium text-[#455d58] hover:underline"
                   >
-                    Get a Quote →
-                  </a>
+                    Learn More →
+                  </Link>
                 </div>
               ))}
             </div>
@@ -411,7 +377,7 @@ export default function Home() {
         </section>
 
         {/* FAQ */}
-        <section id="faq" className="bg-slate-50/60 border-y border-slate-100">
+        <section id="faq">
           <div className="mx-auto max-w-4xl px-6 py-16">
             <h3 className="text-3xl font-bold text-center">
               Frequently Asked Questions
@@ -491,7 +457,7 @@ export default function Home() {
                   Ready to get your space sparkly and shiny?
                 </h3>
                 <p className="mt-2 text-slate-100">
-                  Tell us about your space and we’ll send a fast, fair quote.
+                  Tell us about your project and we’ll send a fast, fair quote.
                 </p>
               </div>
               <div className="md:text-right">
@@ -508,7 +474,7 @@ export default function Home() {
         </section>
 
         {/* Contact */}
-        <section id="contact" className="border-t border-slate-100 bg-white">
+        <section id="contact" className=" bg-white">
           <div className="mx-auto max-w-5xl px-6 py-16">
             <h3 className="text-3xl font-bold text-center">Contact Us</h3>
             <form
@@ -650,7 +616,7 @@ export default function Home() {
                   <FaInstagram />
                 </a>
                 <a
-                  href="https://tiktok.com"
+                  href="https://www.tiktok.com/@mariebacchus876?_r=1&_t=ZT-93Z3NK4fGCj"
                   target="_blank"
                   className="hover:text-slate-200"
                 >
