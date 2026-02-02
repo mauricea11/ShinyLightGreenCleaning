@@ -584,11 +584,11 @@ Today, Shiny Light Green Cleaning Services is a successful and growing business 
                 </li>
                 <li>
                   <a
-                    href="#faq"
-                    onClick={(e) => smoothScroll(e, "faq")}
+                    href="https://acayjv-mz.myshopify.com/"
+              target="_blank"
                     className="hover:underline"
                   >
-                    FAQ
+                    Product Store
                   </a>
                 </li>
               </ul>
