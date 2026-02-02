@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { services } from "@/data/services";
 import { FaCheck } from "react-icons/fa";
 
@@ -56,12 +57,12 @@ export default function ServicePage() {
             Let’s make your space shine. Request a fast, fair quote today and
             schedule your cleaning with ease.
           </p>
-          <a
+          <Link
             href="/#contact"
             className="mt-6 inline-block px-8 py-3 rounded-2xl bg-white text-[#455d58] font-medium shadow hover:bg-slate-100 transition"
           >
             Get a Free Quote
-          </a>
+          </Link>
         </div>
       </section>
     </main>
