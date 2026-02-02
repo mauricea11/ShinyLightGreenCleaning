@@ -72,7 +72,7 @@ export const services: Service[] = [
     title: "Hospital Cleaning",
     description:
       "Specialized sanitization for healthcare facilities to maintain strict hygiene.",
-    image: "/photos/adhy-savala-zbpgmGe27p8-unsplash.jpg",
+    image: "/photos/benyamin-bohlouli-e7MJLM5VGjY-unsplash.jpg",
     checklist: [
       "Sanitize exam rooms and waiting areas",
       "Disinfect high-touch surfaces and equipment",
