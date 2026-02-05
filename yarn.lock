@@ -3617,7 +3617,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sharp@npm:^0.34.3":
+"sharp@npm:^0.34.3, sharp@npm:^0.34.5":
   version: 0.34.5
   resolution: "sharp@npm:0.34.5"
   dependencies:
@@ -3738,6 +3738,7 @@ __metadata:
     react: "npm:19.1.0"
     react-dom: "npm:19.1.0"
     react-icons: "npm:^5.5.0"
+    sharp: "npm:^0.34.5"
     tailwindcss: "npm:^4.1.13"
     typescript: "npm:^5"
   languageName: unknown

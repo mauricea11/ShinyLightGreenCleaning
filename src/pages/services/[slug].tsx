@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { services } from "@/data/services";
 import { FaCheck } from "react-icons/fa";
+import Image from "next/image";
 
 export default function ServicePage() {
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function ServicePage() {
           alt={service.title}
           className="absolute inset-0 h-full w-full object-cover"
         />
+       
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
           <div className="text-center text-white px-4">
             <h1 className="text-3xl md:text-5xl font-bold">{service.title}</h1>
