@@ -27,6 +27,28 @@ export default function Home() {
   const [status, setStatus] = useState("");
   const [selectedService, setSelectedService] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  
+
+  const [reviewIndex, setReviewIndex] = useState(0);
+
+  const reviews = [
+    "They left our apartment sparkling and were so friendly. Booking was a breeze!",
+    "The deep clean exceeded expectations—appliances and baseboards look brand new.",
+    "Professional, punctual, and thorough. We signed up for bi-weekly right away.",
+    "The team is courteous and detailed; our office looks amazing.",
+    "Great communication and flexible scheduling — highly recommend.",
+    "Exceptional attention to detail; they cleaned areas other companies missed.",
+  ];
+
+  useEffect(() => {
+    if (reviews.length === 0) return;
+    const t = setInterval(() => {
+      setReviewIndex((r) => (r + 1) % reviews.length);
+    }, 4500);
+    return () => clearInterval(t);
+  }, [reviews.length]);
+
+  
 
   const closeMenu = () => setMenuOpen(false);
 
@@ -175,18 +197,14 @@ export default function Home() {
             <a href="#services" onClick={(e) => smoothScroll(e, "services")}>
               Services
             </a>
+            <Link href="/store" className="hover:text-[#455d58]">
+              Products
+            </Link>
             <a href="#reviews" onClick={(e) => smoothScroll(e, "reviews")}>
               Reviews
             </a>
             <a href="#faq" onClick={(e) => smoothScroll(e, "faq")}>
               FAQ
-            </a>
-            <a
-              href="https://acayjv-mz.myshopify.com/"
-              target="_blank"
-              className="hover:text-[#455d58]"
-            >
-              Product Store
             </a>
             <a
               href="#contact"
@@ -250,16 +268,54 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Services */}
+        <section id="services">
+          {/* ... keep your Services content unchanged ... */}
+          <div className="mx-auto max-w-7xl px-6 py-16">
+            <h3 className="text-3xl font-bold text-center">What We Offer</h3>
+            <p className="mt-2 text-center text-slate-600">
+              Pick the clean that fits your life.
+            </p>
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+              {services.map((s) => (
+                <div
+                  key={s.slug}
+                  className="group rounded-3xl border border-slate-100 bg-white p-6 shadow-sm flex flex-col items-center text-center"
+                >
+                  <div className="mb-6 h-44 w-44 rounded-full overflow-hidden shadow-md relative">
+                    <Image
+                      src={s.image}
+                      alt={s.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 176px"
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
+                  <h4 className="text-lg font-semibold">
+                    <Link
+                      href={`/services/${s.slug}`}
+                      className="text-[#455d58] hover:underline block"
+                    >
+                      {s.title}
+                    </Link>
+                  </h4>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* About */}
         <section
           id="about"
-          className="snap-start flex items-center justify-center px-6 py-16 "
+          className="snap-start flex items-center justify-center px-6 py-16 min-h-screen"
         >
-          <div className="grid md:grid-cols-2 gap-12 items-center md:items-stretch max-w-7xl w-full">
+          <div className="grid md:grid-cols-2 gap-12 items-center md:items-stretch max-w-7xl w-full h-full">
             {/* Image + Heading column */}
             <div ref={leftColRef} className="order-1 md:order-1 md:flex md:flex-col">
               <h3 className="text-3xl font-bold mb-4 text-center">
-                To New Beginnings
+                To New Beginnings: Our Story
               </h3>
               <div className="aspect-[4/3] md:aspect-auto w-full rounded-3xl overflow-hidden shadow-xl relative md:flex-1 md:h-full">
                 <Image
@@ -273,7 +329,7 @@ export default function Home() {
             </div>
 
             {/* Text column */}
-            <div ref={rightColRef} className="order-2 md:order-2 md:flex md:items-start md:pt-10">
+            <div ref={rightColRef} className="order-2 md:order-2 md:flex md:items-start md:pt-16 lg:pt-24">
               <p className="text-slate-700">
                 Shiny Light Green Cleaning Services was born out of determination, resilience, and a vision for something better. In 2014, Marie Jeanne, a single mother in New York City, set out to support her son and build a future. With hard work, determination, and a commitment to quality, she launched her cleaning services on Groupon—quickly earning a 5-star reputation built on excellence and trust.
 
@@ -285,44 +341,44 @@ Today, Shiny Light Green Cleaning Services is a successful and growing business 
           </div>
         </section>
 
-        {/* Services */}
-        <section id="services">
-          {/* ... keep your Services content unchanged ... */}
-          <div className="mx-auto max-w-7xl px-6 py-16">
-            <h3 className="text-3xl font-bold text-center">What We Offer</h3>
-            <p className="mt-2 text-center text-slate-600">
-              Pick the clean that fits your life.
-            </p>
-            <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-              {services.map((s) => (
-                <div
-                  key={s.slug}
-                  className="group rounded-3xl border border-slate-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 flex flex-col items-center text-center"
+
+
+        {/* Reviews */}
+        <section id="reviews" className="mx-auto max-w-7xl px-6 py-16">
+          <h3 className="text-3xl font-bold text-center">Kind Words from Clients</h3>
+
+          <div className="mt-10 overflow-hidden">
+            <div
+              className="flex transition-transform duration-700"
+              style={{ transform: `translateX(-${reviewIndex * 100}%)` }}
+            >
+              {reviews.map((quote, i) => (
+                <figure
+                  key={i}
+                  className="min-w-full rounded-3xl border border-slate-100 bg-white p-6 shadow-sm flex flex-col items-center justify-center"
                 >
-                  <div className="mb-6 h-44 w-44 rounded-full overflow-hidden shadow-md relative">
-                    <Image
-                      src={s.image}
-                      alt={s.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 176px"
-                      className="object-cover"
-                      priority
-                    />
-                  </div>
-                  <h4 className="text-lg font-semibold">{s.title}</h4>
-                  <Link
-                    href={`/services/${s.slug}`}
-                    className="mt-5 inline-block text-sm font-medium text-[#455d58] hover:underline"
-                  >
-                    Learn More →
-                  </Link>
-                </div>
+                  <blockquote className="text-slate-700 text-center">“{quote}”</blockquote>
+                  <figcaption className="mt-4 text-sm text-slate-500">— Verified Customer</figcaption>
+                </figure>
               ))}
             </div>
           </div>
+
+          <div className="mt-6 flex justify-center gap-2">
+            {reviews.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setReviewIndex(i)}
+                aria-label={`Go to review ${i + 1}`}
+                className={`h-2 w-2 rounded-full transition-colors ${
+                  i === reviewIndex ? "bg-[#455d58]" : "bg-slate-300"
+                }`}
+              />
+            ))}
+          </div>
         </section>
 
-        {/* Stats */}
+              {/* Stats */}
         <section className="mx-auto max-w-7xl px-6 py-14">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div className="rounded-2xl border border-slate-100 p-6 shadow-sm">
@@ -349,30 +405,6 @@ Today, Shiny Light Green Cleaning Services is a successful and growing business 
                 Satisfaction
               </p>
             </div>
-          </div>
-        </section>
-
-        {/* Reviews */}
-        <section id="reviews" className="mx-auto max-w-7xl px-6 py-16">
-          <h3 className="text-3xl font-bold text-center">
-            Kind Words from Clients
-          </h3>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              "They left our apartment sparkling and were so friendly. Booking was a breeze!",
-              "The deep clean exceeded expectations—appliances and baseboards look brand new.",
-              "Professional, punctual, and thorough. We signed up for bi-weekly right away.",
-            ].map((quote, i) => (
-              <figure
-                key={i}
-                className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm"
-              >
-                <blockquote className="text-slate-700">“{quote}”</blockquote>
-                <figcaption className="mt-4 text-sm text-slate-500">
-                  — Verified Customer
-                </figcaption>
-              </figure>
-            ))}
           </div>
         </section>
 
@@ -414,6 +446,23 @@ Today, Shiny Light Green Cleaning Services is a successful and growing business 
                     {
                       label: "Emergency Exceptions:",
                       text: "We understand emergencies happen. At our discretion, fees may be waived in the case of urgent, unavoidable circumstances.",
+                    },
+                  ],
+                },
+                {
+                  q: "Do you provide your own cleaning supplies?",
+                  a: "Yes — our teams bring eco-friendly, non-toxic cleaning supplies by default. If you prefer we use your products, please let us know when booking.",
+                },
+                {
+                  q: "Are your team members background-checked and insured?",
+                  a: "Yes. All employees are background-checked, covered by insurance, and trained on safety and cleaning best practices.",
+                },
+                {
+                  q: "Can I request the same cleaner for recurring visits?",
+                  a: [
+                    {
+                      label: "",
+                      text: "We try to assign the same cleaner for recurring clients when possible. To request a specific team member, add a note to your booking or email us and we’ll do our best to accommodate.",
                     },
                   ],
                 },
@@ -676,6 +725,9 @@ Today, Shiny Light Green Cleaning Services is a successful and growing business 
           >
             Services
           </a>
+          <Link href="/store" onClick={() => closeMenu()}>
+            Products
+          </Link>
           <a
             href="#reviews"
             onClick={(e) => {
@@ -693,14 +745,6 @@ Today, Shiny Light Green Cleaning Services is a successful and growing business 
             }}
           >
             FAQ
-          </a>
-          <a
-            href="https://accounts.shopify.com/select?rid=..."
-            target="_blank"
-            className="hover:underline"
-            onClick={() => closeMenu()}
-          >
-            Cleaning Products
           </a>
           <a
             href="#contact"

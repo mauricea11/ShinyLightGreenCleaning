@@ -3,22 +3,28 @@ import Link from "next/link";
 import { services } from "@/data/services";
 import { FaCheck } from "react-icons/fa";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function ServicePage() {
   const router = useRouter();
   const { slug } = router.query;
   const service = services.find((s) => s.slug === slug);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   if (!service) return <p className="p-10 text-center">Service not found</p>;
 
   return (
     <main className="bg-white text-slate-900 min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[300px] md:h-[400px] w-full overflow-hidden">
-        <img
-          src={`/photos/${service.slug}.jpg`} // ✅ name your service images to match slugs
+      <section className="relative h-[300px] md:h-[400px] w-full overflow-hidden bg-slate-200">
+        <Image
+          src={`/photos/${service.slug}.jpg`}
           alt={service.title}
-          className="absolute inset-0 h-full w-full object-cover"
+          fill
+          priority
+          quality={100}
+          className={`object-cover transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
+          onLoad={() => setImageLoaded(true)}
         />
        
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
