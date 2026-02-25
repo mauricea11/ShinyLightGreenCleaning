@@ -24,6 +24,35 @@ interface ShopifyProduct {
   }>;
 }
 
+interface ShopifyNode {
+  id: string;
+  title: string;
+  handle: string;
+  description: string;
+  priceRange: {
+    minVariantPrice: {
+      amount: string;
+      currencyCode: string;
+    };
+  };
+  images: {
+    edges: Array<{
+      node: {
+        url: string;
+        altText: string | null;
+      };
+    }>;
+  };
+  variants: {
+    edges: Array<{
+      node: {
+        id: string;
+        title: string;
+      };
+    }>;
+  };
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -96,17 +125,17 @@ export default async function handler(
     }
 
     const products: ShopifyProduct[] = data.data.products.edges.map(
-      (edge: any) => ({
+      (edge: { node: ShopifyNode }) => ({
         id: edge.node.id,
         title: edge.node.title,
         handle: edge.node.handle,
         description: edge.node.description,
         priceRange: edge.node.priceRange,
-        images: edge.node.images.edges.map((img: any) => ({
+        images: edge.node.images.edges.map((img: { node: { url: string; altText: string | null } }) => ({
           url: img.node.url,
           altText: img.node.altText || edge.node.title,
         })),
-        variants: edge.node.variants.edges.map((v: any) => ({
+        variants: edge.node.variants.edges.map((v: { node: { id: string; title: string } }) => ({
           id: v.node.id,
           title: v.node.title,
         })),

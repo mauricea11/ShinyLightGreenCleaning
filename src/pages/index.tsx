@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import emailjs from "@emailjs/browser";
 import Image from "next/image";
 import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 import { FaBars, FaTimes } from "react-icons/fa";

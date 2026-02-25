@@ -74,7 +74,7 @@ export default function StorePage() {
     }
   };
 
-  const handleAddToCart = async (variantId: string, productTitle: string) => {
+  const handleAddToCart = async (variantId: string) => {
     setCartLoading(variantId);
     try {
       const response = await fetch("/api/shopify-checkout", {
@@ -211,7 +211,7 @@ export default function StorePage() {
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                       e.preventDefault();
                       if (product.variants.length > 0) {
-                        handleAddToCart(product.variants[0].id, product.title);
+                        handleAddToCart(product.variants[0].id);
                       }
                     }}
                     className="mt-6 w-full px-4 py-3 rounded-xl bg-[#455d58] text-white font-medium hover:bg-[#374643] transition-colors disabled:opacity-50"
