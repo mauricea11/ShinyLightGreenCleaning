@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { FaTimes } from "react-icons/fa";
 
 interface ShopifyProduct {
   id: string;
@@ -29,6 +31,48 @@ export default function StorePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [cartLoading, setCartLoading] = useState<string | null>(null);
+  const [showSignupModal, setShowSignupModal] = useState(true);
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupLoading, setSignupLoading] = useState(false);
+  const [signupSuccess, setSignupSuccess] = useState(false);
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!signupEmail) return;
+
+    setSignupLoading(true);
+    try {
+      // Store in localStorage as backup
+      const emails = JSON.parse(localStorage.getItem("signupEmails") || "[]");
+      emails.push({ email: signupEmail, date: new Date().toISOString() });
+      localStorage.setItem("signupEmails", JSON.stringify(emails));
+
+      // Send welcome email via EmailJS
+      const response = await fetch("/api/send-welcome-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          to_email: signupEmail,
+        }),
+      });
+
+      if (response.ok) {
+        setSignupSuccess(true);
+        setSignupEmail("");
+        setTimeout(() => {
+          setShowSignupModal(false);
+          setSignupSuccess(false);
+        }, 2000);
+      } else {
+        alert("Error signing up. Please try again.");
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      alert("Failed to sign up");
+    } finally {
+      setSignupLoading(false);
+    }
+  };
 
   const handleAddToCart = async (variantId: string, productTitle: string) => {
     setCartLoading(variantId);
@@ -82,9 +126,9 @@ export default function StorePage() {
     <main className="min-h-screen bg-white text-slate-900">
       <header className="fixed top-0 left-0 right-0 z-50 bg-white lg:bg-white/80 lg:backdrop-blur border-b border-slate-100">
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-          <a href="/" className="font-semibold text-[#455d58]">
+          <Link href="/" className="font-semibold text-[#455d58]">
             ← Back to Home
-          </a>
+          </Link>
           <div />
         </div>
       </header>
@@ -147,6 +191,7 @@ export default function StorePage() {
                   </div>
                 )}
 
+
                 <div className="p-6">
                   <h3 className="text-lg font-semibold text-slate-900">{product.title}</h3>
                   <p className="mt-2 text-sm text-slate-600 line-clamp-2">{product.description}</p>
@@ -184,6 +229,62 @@ export default function StorePage() {
           <p className="text-slate-600 mb-4">Also available at Clark Park Farmers Market every Saturday</p>
         </div>
       </div>
+
+      {/* Signup Modal */}
+      {showSignupModal && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
+            <button
+              onClick={() => setShowSignupModal(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition"
+            >
+              <FaTimes size={24} />
+            </button>
+
+            {signupSuccess ? (
+              <div className="text-center py-8">
+                <div className="text-4xl mb-4">✨</div>
+                <h3 className="text-2xl font-bold text-[#455d58] mb-2">Thank You!</h3>
+                <p className="text-slate-600">Check your email for exclusive offers.</p>
+              </div>
+            ) : (
+              <>
+                <h2 className="text-2xl font-bold text-[#455d58] mb-2">
+                  Stay Updated!
+                </h2>
+                <p className="text-slate-600 mb-6">
+                  Get early access to new products, exclusive discounts, and learn about upcoming events at Clark Park Farmers Market.
+                </p>
+
+                <form onSubmit={handleSignup} className="space-y-4">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={signupEmail}
+                    onChange={(e) => setSignupEmail(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#455d58] focus:border-transparent"
+                  />
+                  <button
+                    type="submit"
+                    disabled={signupLoading}
+                    className="w-full px-4 py-3 rounded-xl bg-[#455d58] text-white font-medium hover:bg-[#374643] transition-colors disabled:opacity-50"
+                  >
+                    {signupLoading ? "Signing up..." : "Sign Me Up"}
+                  </button>
+                </form>
+
+                <button
+                  onClick={() => setShowSignupModal(false)}
+                  className="w-full mt-3 py-2 text-slate-600 hover:text-slate-900 transition text-sm"
+                >
+                  Maybe Later
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </main>
   );
 }
