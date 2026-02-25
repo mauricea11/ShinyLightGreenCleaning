@@ -22,7 +22,7 @@ export default async function handler(
   }
 
   try {
-    // Create a cart instead of using deprecated checkoutCreate
+    // Create  cart instead of using deprecated checkoutCreate
     const createCartQuery = `
       mutation CreateCart($input: CartInput!) {
         cartCreate(input: $input) {
