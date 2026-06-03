@@ -580,8 +580,15 @@ Today, Shiny Light Green Cleaning Services is a successful and growing business 
                 </div>
               )}
               {status === "error" && (
-                <div className="fixed bottom-6 right-6 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg animate-slide-in">
-                  ❌ Failed to send message. Try again.
+                <div className="fixed bottom-6 right-6 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg animate-slide-in relative">
+                  <button
+                    onClick={() => setStatus("")}
+                    aria-label="Close notification"
+                    className="absolute top-1 right-2 text-white/90 hover:text-white"
+                  >
+                    <FaTimes />
+                  </button>
+                  <div className="pr-8">Failed to send message. Try again.</div>
                 </div>
               )}
             </form>

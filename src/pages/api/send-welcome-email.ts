@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 const SERVICE_ID = process.env.EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = process.env.EMAILJS_TEMPLATE_ID;
 const PUBLIC_KEY = process.env.EMAILJS_PUBLIC_KEY;
+const PRIVATE_KEY = process.env.EMAILJS_PRIVATE_KEY;
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,26 +19,36 @@ export default async function handler(
     return res.status(400).json({ error: "Email is required" });
   }
 
-  if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+  if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY || !PRIVATE_KEY) {
     return res.status(500).json({ error: "EmailJS not configured" });
   }
 
   try {
+    // Log incoming data for debugging (do not log private key)
+    console.error("send-welcome-email incoming body:", req.body);
+
+    const payload = {
+      service_id: SERVICE_ID,
+      template_id: TEMPLATE_ID,
+      user_id: PUBLIC_KEY,
+      accessToken: PRIVATE_KEY,
+      template_params: {
+        to_email,
+        subject: "Welcome to Shiny Light Cleaning!",
+        message: `Thank you for signing up! You'll now receive updates about new products, exclusive discounts, and events at Clark Park Farmers Market every Saturday.`,
+      },
+    };
+
+    const debugPayload = { ...payload } as any;
+    delete debugPayload.private_key;
+    console.error("EmailJS payload (no private key):", JSON.stringify(debugPayload));
+
     const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        service_id: SERVICE_ID,
-        template_id: TEMPLATE_ID,
-        user_id: PUBLIC_KEY,
-        template_params: {
-          to_email,
-          subject: "Welcome to Shiny Light Cleaning!",
-          message: `Thank you for signing up! You'll now receive updates about new products, exclusive discounts, and events at Clark Park Farmers Market every Saturday.`,
-        },
-      }),
+      body: JSON.stringify(payload),
     });
 
     const data = await response.json();
