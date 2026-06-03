@@ -4,6 +4,7 @@ import { services } from "@/data/services";
 import { FaCheck } from "react-icons/fa";
 import Image from "next/image";
 import { useState } from "react";
+import BookCleaningButton from "@/pages/bookcleaningbutton";
 
 export default function ServicePage() {
   const router = useRouter();
@@ -65,12 +66,18 @@ export default function ServicePage() {
             Let’s make your space shine. Request a fast, fair quote today and
             schedule your cleaning with ease.
           </p>
-          <Link
-            href="/#contact"
-            className="mt-6 inline-block px-8 py-3 rounded-2xl bg-white text-[#455d58] font-medium shadow hover:bg-slate-100 transition"
-          >
-            Get a Free Quote
-          </Link>
+          {["small-businesses", "move-in-out", "airbnb"].includes(service.slug) ? (
+            <div className="mt-6">
+              <BookCleaningButton />
+            </div>
+          ) : (
+            <Link
+              href="/#contact"
+              className="mt-6 inline-block px-8 py-3 rounded-2xl bg-white text-[#455d58] font-medium shadow hover:bg-slate-100 transition"
+            >
+              Get a Free Quote
+            </Link>
+          )}
         </div>
       </section>
     </main>
