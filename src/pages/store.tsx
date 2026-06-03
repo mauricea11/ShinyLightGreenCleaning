@@ -109,8 +109,11 @@ export default function StorePage() {
     const fetchProducts = async () => {
       try {
         const response = await fetch("/api/shopify-products");
-        if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
+        if (!response.ok) {
+          const message = data?.error || data?.message || "Failed to fetch products";
+          throw new Error(message);
+        }
         setProducts(data.products);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Unknown error");
@@ -139,18 +142,6 @@ export default function StorePage() {
           <p className="mt-3 text-lg text-slate-600 max-w-2xl mx-auto">
             Eco-friendly, non-toxic cleaning solutions created to bring hotel-level clean to your home.
           </p>
-        </div>
-
-        {/* Featured Products Image */}
-        <div className="mb-16 rounded-3xl overflow-hidden shadow-xl h-96 relative bg-slate-100">
-          <Image
-            src="/photos/photos for website/cleaning products.png"
-            alt="Shiny Light Green Cleaning Products"
-            fill
-            quality={100}
-            className="object-contain"
-            priority
-          />
         </div>
 
         {loading && (
@@ -239,6 +230,17 @@ export default function StorePage() {
 
         <div className="mt-16 text-center">
           <p className="text-slate-600 mb-4">Also available at Clark Park Farmers Market every Saturday</p>
+        </div>
+
+        <div className="mt-6 rounded-3xl overflow-hidden h-[30rem] md:h-[36rem] relative">
+          <Image
+            src="/photos/photos for website/cleaning products.png"
+            alt="Shiny Light Green Cleaning Products"
+            fill
+            quality={100}
+            className="object-contain"
+            priority
+          />
         </div>
       </div>
 
