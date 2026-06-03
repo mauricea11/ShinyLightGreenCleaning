@@ -39,7 +39,7 @@ export default async function handler(
       },
     };
 
-    const debugPayload = { ...payload } as any;
+    const debugPayload = { ...payload } as Record<string, unknown>;
     delete debugPayload.private_key;
     console.error("EmailJS payload (no private key):", JSON.stringify(debugPayload));
 
