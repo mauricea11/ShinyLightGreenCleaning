@@ -317,12 +317,13 @@ export default function Home() {
               <h3 className="text-3xl font-bold mb-4 text-center">
                 To New Beginnings: Our Story
               </h3>
-              <div className="aspect-[4/3] md:aspect-auto w-full rounded-3xl overflow-hidden shadow-xl relative md:flex-1 md:h-full bg-white">
+              <div className="aspect-[4/3] md:aspect-auto w-full rounded-3xl overflow-hidden shadow-none md:shadow-xl relative md:flex-1 md:h-full bg-transparent md:bg-white">
                 <Image
                   src="/photos/photos for website/marie.png"
                   alt="Marie Jeanne - Founder"
                   fill
-                  className="object-contain object-center md:object-cover md:object-top"
+                  className="rounded-3xl h-full w-full object-cover object-top"
+                  style={{ objectFit: 'cover', objectPosition: 'top' }}
                   priority
                 />
               </div>
