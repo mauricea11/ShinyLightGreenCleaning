@@ -1,12 +1,14 @@
-"use client";
-
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { services } from "@/data/services";
 import { FaCheck } from "react-icons/fa";
 import Image from "next/image";
 import { useState } from "react";
-import BookCleaningButton from "@/pages/bookcleaningbutton";
+import dynamic from "next/dynamic";
+
+const BookCleaningButton = dynamic(() => import("@/pages/bookcleaningbutton"), {
+  ssr: false,
+});
 
 export default function ServicePage() {
   const router = useRouter();

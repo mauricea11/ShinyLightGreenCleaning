@@ -1,10 +1,15 @@
-"use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PopupModal } from "react-calendly";
 
 export default function BookCleaningButton() {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <>
@@ -15,12 +20,14 @@ export default function BookCleaningButton() {
         Book a Cleaning
       </button>
 
-      <PopupModal
-        url="https://calendly.com/mariejeanneaka"
-        open={open}
-        onModalClose={() => setOpen(false)}
-        rootElement={document.body}
-      />
+      {typeof window !== 'undefined' && (
+        <PopupModal
+          url="https://calendly.com/mariejeanneaka"
+          open={open}
+          onModalClose={() => setOpen(false)}
+          rootElement={document.body}
+        />
+      )}
     </>
   );
 }
