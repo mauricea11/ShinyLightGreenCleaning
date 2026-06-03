@@ -141,6 +141,8 @@ export default function StorePage() {
           </p>
         </div>
 
+        {/* Featured Products Image (moved below Clark Park text) */}
+
         {loading && (
           <div className="flex justify-center items-center py-20">
             <p className="text-slate-500">Loading products...</p>
@@ -227,6 +229,18 @@ export default function StorePage() {
 
         <div className="mt-16 text-center">
           <p className="text-slate-600 mb-4">Also available at Clark Park Farmers Market every Saturday</p>
+        </div>
+
+        {/* Featured Products Image (placed beneath Clark Park text) */}
+        <div className="mt-6 rounded-3xl overflow-hidden h-96 md:h-[28rem] relative">
+          <Image
+            src="/photos/photos for website/cleaning products.png"
+            alt="Shiny Light Green Cleaning Products"
+            fill
+            quality={100}
+            className="object-contain"
+            priority
+          />
         </div>
       </div>
 
