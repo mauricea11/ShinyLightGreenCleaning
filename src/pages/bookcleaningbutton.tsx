@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { PopupModal } from "react-calendly";
 
