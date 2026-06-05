@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Head from "next/head";
 import { services } from "@/data/services";
 import { FaCheck } from "react-icons/fa";
 import Image from "next/image";
-import { useState } from "react";
 import dynamic from "next/dynamic";
 
 const BookCleaningButton = dynamic(() => import("@/pages/bookcleaningbutton"), {
@@ -20,6 +20,9 @@ export default function ServicePage() {
 
   return (
     <main className="bg-white text-slate-900 min-h-screen">
+      <Head>
+        <link rel="preload" as="image" href={`/photos/${service.slug}.jpg`} />
+      </Head>
       {/* Hero Section */}
       <section className="relative h-[300px] md:h-[400px] w-full overflow-hidden bg-slate-200">
         <Image
@@ -27,6 +30,7 @@ export default function ServicePage() {
           alt={service.title}
           fill
           priority
+          loading="eager"
           quality={100}
           className="object-cover"
         />

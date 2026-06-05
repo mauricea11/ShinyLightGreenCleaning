@@ -67,48 +67,33 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    if (typeof window === "undefined" || !window.IntersectionObserver) return;
+    if (typeof window === "undefined") return;
 
     const loaded = new Set<string>();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const slug = entry.target.getAttribute("data-service-slug");
-          if (!slug || loaded.has(slug)) return;
 
-          loaded.add(slug);
-          try {
-            router.prefetch(`/services/${slug}`);
-          } catch (e) {
-            // ignore
-          }
+    services.forEach((s) => {
+      if (loaded.has(s.slug)) return;
+      loaded.add(s.slug);
 
-          try {
-            const href = `/photos/${slug}.jpg`;
-            if (!document.querySelector(`link[rel=preload][href="${href}"]`)) {
-              const link = document.createElement("link");
-              link.rel = "preload";
-              link.as = "image";
-              link.href = href;
-              document.head.appendChild(link);
-            }
-          } catch (e) {
-            // ignore
-          }
-        });
-      },
-      {
-        rootMargin: "400px 0px",
-        threshold: 0.1,
+      try {
+        router.prefetch(`/services/${s.slug}`);
+      } catch (e) {
+        // ignore
       }
-    );
 
-    document.querySelectorAll<HTMLElement>("[data-service-slug]").forEach((el) => {
-      observer.observe(el);
+      try {
+        const href = `/photos/${s.slug}.jpg`;
+        if (!document.querySelector(`link[rel=preload][href="${href}"]`)) {
+          const link = document.createElement("link");
+          link.rel = "preload";
+          link.as = "image";
+          link.href = href;
+          document.head.appendChild(link);
+        }
+      } catch (e) {
+        // ignore
+      }
     });
-
-    return () => observer.disconnect();
   }, [router]);
 
   // Make left column taller than right column on md+ screens
@@ -345,6 +330,21 @@ export default function Home() {
                     <Link
                       href={`/services/${s.slug}`}
                       className="text-[#455d58] hover:underline block"
+                      onMouseEnter={() => {
+                        try {
+                          router?.prefetch(`/services/${s.slug}`);
+                        } catch (e) {}
+                        try {
+                          const href = `/photos/${s.slug}.jpg`;
+                          if (!document.querySelector(`link[rel=preload][href="${href}"]`)) {
+                            const link = document.createElement("link");
+                            link.rel = "preload";
+                            link.as = "image";
+                            link.href = href;
+                            document.head.appendChild(link);
+                          }
+                        } catch (e) {}
+                      }}
                     >
                       {s.title}
                     </Link>
