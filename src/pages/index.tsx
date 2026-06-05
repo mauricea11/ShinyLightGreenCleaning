@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 import { FaBars, FaTimes } from "react-icons/fa";
 // (useEffect and useRef imported above)
@@ -62,6 +63,53 @@ export default function Home() {
       document.body.style.overflow = ""; // reset
     }
   }, [menuOpen]);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.IntersectionObserver) return;
+
+    const loaded = new Set<string>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const slug = entry.target.getAttribute("data-service-slug");
+          if (!slug || loaded.has(slug)) return;
+
+          loaded.add(slug);
+          try {
+            router.prefetch(`/services/${slug}`);
+          } catch (e) {
+            // ignore
+          }
+
+          try {
+            const href = `/photos/${slug}.jpg`;
+            if (!document.querySelector(`link[rel=preload][href="${href}"]`)) {
+              const link = document.createElement("link");
+              link.rel = "preload";
+              link.as = "image";
+              link.href = href;
+              document.head.appendChild(link);
+            }
+          } catch (e) {
+            // ignore
+          }
+        });
+      },
+      {
+        rootMargin: "400px 0px",
+        threshold: 0.1,
+      }
+    );
+
+    document.querySelectorAll<HTMLElement>("[data-service-slug]").forEach((el) => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [router]);
 
   // Make left column taller than right column on md+ screens
   useEffect(() => {
@@ -280,6 +328,7 @@ export default function Home() {
               {services.map((s) => (
                 <div
                   key={s.slug}
+                  data-service-slug={s.slug}
                   className="group rounded-3xl border border-slate-100 bg-white p-6 shadow-sm flex flex-col items-center text-center"
                 >
                   <div className="mb-6 h-44 w-44 rounded-full overflow-hidden shadow-md relative">

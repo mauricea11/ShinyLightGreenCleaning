@@ -14,7 +14,7 @@ export default function ServicePage() {
   const router = useRouter();
   const { slug } = router.query;
   const service = services.find((s) => s.slug === slug);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  
 
   if (!service) return <p className="p-10 text-center">Service not found</p>;
 
@@ -28,8 +28,7 @@ export default function ServicePage() {
           fill
           priority
           quality={100}
-          className={`object-cover transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
-          onLoad={() => setImageLoaded(true)}
+          className="object-cover"
         />
        
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
