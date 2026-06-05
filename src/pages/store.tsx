@@ -31,7 +31,7 @@ export default function StorePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [cartLoading, setCartLoading] = useState<string | null>(null);
-  const [showSignupModal, setShowSignupModal] = useState(true);
+  const [showSignupModal, setShowSignupModal] = useState(false);
   const [signupEmail, setSignupEmail] = useState("");
   const [signupLoading, setSignupLoading] = useState(false);
   const [signupSuccess, setSignupSuccess] = useState(false);
@@ -60,6 +60,7 @@ export default function StorePage() {
         setSignupSuccess(true);
         setSignupEmail("");
         setTimeout(() => {
+          try { localStorage.setItem("signupDismissed", "true"); } catch (e) {}
           setShowSignupModal(false);
           setSignupSuccess(false);
         }, 2000);
@@ -121,8 +122,23 @@ export default function StorePage() {
         setLoading(false);
       }
     };
-
     fetchProducts();
+  }, []);
+
+  // Show signup modal after a short delay unless previously dismissed
+  useEffect(() => {
+    try {
+      const dismissed = localStorage.getItem("signupDismissed");
+      if (dismissed === "true") return;
+    } catch (e) {
+      // ignore
+    }
+
+    const timer = setTimeout(() => {
+      setShowSignupModal(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -249,7 +265,10 @@ export default function StorePage() {
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
             <button
-              onClick={() => setShowSignupModal(false)}
+              onClick={() => {
+                try { localStorage.setItem("signupDismissed", "true"); } catch (e) {}
+                setShowSignupModal(false);
+              }}
               className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition"
             >
               <FaTimes size={24} />
@@ -289,7 +308,10 @@ export default function StorePage() {
                 </form>
 
                 <button
-                  onClick={() => setShowSignupModal(false)}
+                  onClick={() => {
+                    try { localStorage.setItem("signupDismissed", "true"); } catch (e) {}
+                    setShowSignupModal(false);
+                  }}
                   className="w-full mt-3 py-2 text-slate-600 hover:text-slate-900 transition text-sm"
                 >
                   Maybe Later

@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import { Lora } from "next/font/google";
 import "@/styles/globals.css";
+import CookieBanner from "@/components/CookieBanner";
 
 const lora = Lora({
   subsets: ["latin"],
@@ -12,6 +13,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div className={lora.variable + " font-lora"}>
       <Component {...pageProps} />
+      <CookieBanner />
     </div>
   );
 }
